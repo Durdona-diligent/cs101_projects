@@ -1,0 +1,1 @@
+print("\nToday I've been very busy which I love to be, which I want to be! There is so many assignments to do. Now I'm doing one of them in Python. Anyways, I can't get enough my university, my professors!:")
