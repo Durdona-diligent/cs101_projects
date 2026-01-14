@@ -1,11 +1,20 @@
-#The Scholarship Committee
-def select_candidates(names, gpas, volunteering_hours):
-    candidate_list = (zip(names, gpas, volunteering_hours))
-    eligible = [candidate for candidate in candidate_list if candidate[1] >= 3.8 or (candidate[1] >= 3.5 and candidate[2] > 50)]
-    sorted_candidates = sorted(eligible, key=lambda candidate: (-candidate[1], -candidate[2]))
-    formatted = [f'{candidate[0]}: {candidate[1]} / {candidate[2]}h' for candidate in sorted_candidates]
-    print(formatted)
-names = ["Alice", "Bob", "Charlie", "David", "Eve"]
-gpas = [3.9, 3.2, 3.6, 3.7, 3.5]
-hours = [10, 100, 60, 20, 40]
-select_candidates(names, gpas, hours)    
+#The Missing assignment Checker
+def absence_checker(students, assignments):
+    students_set = set(i.lower() for i in students)
+    assignments_set = set(i.lower() for i in assignments)
+    not_submitted = students_set - assignments_set
+    not_in_the_list = assignments_set - students_set
+    not_submitted_list = list(not_submitted)
+    not_in_the_list = list(not_in_the_list)
+    not_submitted_list.sort()
+    not_in_the_list.sort()
+    return not_submitted_list, not_in_the_list
+
+all_students = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank"]
+submitted = ["alice", "Bob", "Frank", "George"] # Note: 'alice' is lowercase, 'George' is new
+
+list_1, list_2 = absence_checker(all_students, submitted)
+print(f"Not submitted:")
+[print(f"- {i.title()}") for i in list_1]
+print(f"\n\nNot on class list:")
+[print(f"- {i.title()}")for i in list_2]
