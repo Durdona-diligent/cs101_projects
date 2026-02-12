@@ -1,20 +1,26 @@
-#The Missing assignment Checker
-def absence_checker(students, assignments):
-    students_set = set(i.lower() for i in students)
-    assignments_set = set(i.lower() for i in assignments)
-    not_submitted = students_set - assignments_set
-    not_in_the_list = assignments_set - students_set
-    not_submitted_list = list(not_submitted)
-    not_in_the_list = list(not_in_the_list)
-    not_submitted_list.sort()
-    not_in_the_list.sort()
-    return not_submitted_list, not_in_the_list
+class ShoppingCart:
+    store_name = "Online Bazaar"
+    tax_rate = 0.08
+    def __init__(self, customer_name):
+        self.customer_name = customer_name
+        self.items = []
+    def add_item(self, item_name, price):
+        if price <= 0:
+            print("Invalid price. Must be greater than 0")
+        else:
+            print(f"Added {item_name} (${price}) to cart")
+            self.items.append({"name": item_name, "price": price})
+    def remove_item(self, item_name):
+        for i, item in enumerate(self.items):
+            if item["name"] == item_name:
+                self.items.pop(i)
+                print(f"Removed {item_name} from cart")
+                return
+        print(f"Item '{item_name}' not found in cart")
+    def get_subtotal(self):
+        subt_price = 0
+        for item in self.items:
+            if item == self
 
-all_students = ["Alice", "Bob", "Charlie", "David", "Eve", "Frank"]
-submitted = ["alice", "Bob", "Frank", "George"] # Note: 'alice' is lowercase, 'George' is new
 
-list_1, list_2 = absence_checker(all_students, submitted)
-print(f"Not submitted:")
-[print(f"- {i.title()}") for i in list_1]
-print(f"\n\nNot on class list:")
-[print(f"- {i.title()}")for i in list_2]
+
