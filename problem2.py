@@ -1,20 +1,31 @@
-#The "Guess the Number" Game
-import random
-secret = random.randint(1, 20)
-def guess_the_number(secret):
-    attempts = 0
-    while attempts < 5:
-        attempts += 1
-        guess = int(input(f"Attempt {attempts}/5. Enter your guess: "))
-        if guess > secret:
-            print("Too high!")
-        elif guess < secret:
-            print("Too low!")
+class BankAccount:
+    bank_name = "Urgench Bank"
+    total_accounts = 0
+    min_balance = 10
+    def __init__(self, owner, initial_balance):
+        self.owner = owner
+        self.balance = initial_balance
+        BankAccount.total_accounts += 1
+    def deposit(self, amount):
+        if amount > 0:
+            new_balance = self.balance + amount
+            self.balance = new_balance
+            print(f"Deposited {amount}. New balance: {new_balance}")
+    def withdraw(self, amount):
+        new_balance = self.balance - amount 
+        if new_balance < BankAccount.min_balance:
+            print("Insufficient funds or below minimum balance")
         else:
-            print("You got it!")
-    print(f"Game Over! The number was {secret}")
-print("I'm thinking of a number between 1 and 20.")
-guess_the_number(10)
+            print(f"Withdrew {amount}. New balance: {new_balance}")
+            self.balance = new_balance
+    def display_account_info(self):
+        print(f"Owner: {self.owner}, Balance: {self.balance}, Bank: {BankAccount.bank_name}")
 
-
-    
+account1 = BankAccount("Ali", 100)
+account2 = BankAccount("Vali", 50)
+account1.display_account_info()
+account1.deposit(50)
+account1.withdraw(80)
+account2.display_account_info()
+account2.withdraw(100)
+print(BankAccount.total_accounts)
