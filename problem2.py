@@ -1,31 +1,32 @@
-class BankAccount:
-    bank_name = "Urgench Bank"
-    total_accounts = 0
-    min_balance = 10
-    def __init__(self, owner, initial_balance):
-        self.owner = owner
-        self.balance = initial_balance
-        BankAccount.total_accounts += 1
-    def deposit(self, amount):
-        if amount > 0:
-            new_balance = self.balance + amount
-            self.balance = new_balance
-            print(f"Deposited {amount}. New balance: {new_balance}")
-    def withdraw(self, amount):
-        new_balance = self.balance - amount 
-        if new_balance < BankAccount.min_balance:
-            print("Insufficient funds or below minimum balance")
-        else:
-            print(f"Withdrew {amount}. New balance: {new_balance}")
-            self.balance = new_balance
-    def display_account_info(self):
-        print(f"Owner: {self.owner}, Balance: {self.balance}, Bank: {BankAccount.bank_name}")
+class Movie:
+    def __init__(self, title, rating):
+        self._title = title
+        self.rating = rating
+    @property
+    def title(self):
+        return self._title
+    @property 
+    def rating(self):
+        return self._rating
+    @rating.setter
+    def rating(self, new_rating):
+        if new_rating < 1 or new_rating > 10:
+            raise ValueError("Rating must be between 1 and 10")
+        self._rating = new_rating
+    def display(self):
+        print(f"{self.title} - {self.rating}/10")
+m = Movie("Inception", 9)
+m.display()
 
-account1 = BankAccount("Ali", 100)
-account2 = BankAccount("Vali", 50)
-account1.display_account_info()
-account1.deposit(50)
-account1.withdraw(80)
-account2.display_account_info()
-account2.withdraw(100)
-print(BankAccount.total_accounts)
+m.rating = 7
+m.display()
+
+try:
+    m.rating = 11
+except ValueError as e:
+    print(e)
+
+try:
+    m.title = "New Title"
+except AttributeError:
+    print("Cannot change title")
