@@ -1,18 +1,25 @@
-# The Password Strength 
-def validate_password(password):
-    if len(password) >= 8:
-        if password != password.lower():
-            if "password" not in password.lower():
-                for char in password:
-                    if '1' <= char <= '9':
-                        return True
-            else:
-                return False
-        else:
-            return False
-    else:
-        return False
-print(validate_password("apple"))           # False (too short)
-print(validate_password("Password123"))     # False (contains 'password')
-print(validate_password("security"))        # False (no uppercase, no digit)
-print(validate_password("SecureCode99"))    # True
+class TemperatureReading:
+    def __init__(self, location, temperature):
+        self.location = location 
+        self._temperature = temperature
+        self.temperature = temperature
+    @property
+    def temperature(self):
+        return self._temperature
+    @temperature.setter
+    def temperature(self, value):
+        if value < -273.15:
+            raise ValueError("Temperature cannot be below absolute zero")
+        self._temperature = value
+r1 = TemperatureReading("Tashkent", 35.0)
+print(r1.location)
+print(r1.temperature)
+
+r1.temperature = -10.5
+print(r1.temperature)
+
+try:
+    r1.temperature = -300
+except ValueError as e:
+    print(e)
+    
