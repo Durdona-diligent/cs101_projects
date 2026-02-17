@@ -1,26 +1,64 @@
-class ShoppingCart:
-    store_name = "Online Bazaar"
-    tax_rate = 0.08
-    def __init__(self, customer_name):
-        self.customer_name = customer_name
-        self.items = []
-    def add_item(self, item_name, price):
-        if price <= 0:
-            print("Invalid price. Must be greater than 0")
-        else:
-            print(f"Added {item_name} (${price}) to cart")
-            self.items.append({"name": item_name, "price": price})
-    def remove_item(self, item_name):
-        for i, item in enumerate(self.items):
-            if item["name"] == item_name:
-                self.items.pop(i)
-                print(f"Removed {item_name} from cart")
-                return
-        print(f"Item '{item_name}' not found in cart")
-    def get_subtotal(self):
-        subt_price = 0
-        for item in self.items:
-            if item == self
+class Product:
+    def __init__(self, name, price, quantity):
+        self._name = name
+        self.price = price
+        self.quantity = quantity
+    @property
+    def name(self):
+        return self._name
+    @property
+    def price(self):
+        return self._price
+    @price.setter
+    def price(self, value):
+        if value < 0:
+            raise ValueError("The price must always be positive number.")
+        self._price = value
+    @property
+    def quantity(self):
+        return self._quantity
+    @quantity.setter
+    def quantity(self, value):
+        if value < 0:
+            raise ValueError("The quantity cannot be negative.")
+        self._quantity = value
+    def restock(self, amount):
+        if amount < 0:
+            raise ValueError("The amount must be positive.")
+        self._quantity += amount
+    def sell(self, amount):
+        if amount < 0:
+            raise ValueError("The amount must be positive.")
+        if amount > self._quantity:
+            raise ValueError("The amount cannot exceed the current quantity.")
+        self._quantity -= amount
+    def total_value(self):
+        return self._price * self._quantity
+p = Product("Laptop", 999.99, 10)
+print(p.name)
+print(p.price)
+print(p.quantity)
+print(p.total_value())
 
+p.price = 899.99
+p.restock(5)
+print(p.quantity)
+print(p.total_value())
 
+p.sell(3)
+print(p.quantity)
 
+try:
+    p.price = -50
+except ValueError as e:
+    print(e)
+
+try:
+    p.sell(100)
+except ValueError as e:
+    print(e)
+
+try:
+    p.name = "Tablet"
+except AttributeError:
+    print("Cannot change product name")
